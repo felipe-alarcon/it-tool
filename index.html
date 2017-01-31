@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wordProcessing">
+
+<head>
+    <title>Spell Checker</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link href="https://bootswatch.com/readable/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a class="navbar-brand" href="#">DCO Helper Italian</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div class="container" ng-controller="mainCtrl" ng-init="wordCount = 0">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a>
+                        <span class="alert alert-default">Word capitalisation</span>
+                    </a>
+                </li>
+                <li><button ng-click="wordCount = 0" ng-class="wordCount == 0 ? 'btn btn-primary' : 'btn btn-default'">All</button></li>
+                <li><button ng-click="wordCount = 1" ng-class="wordCount == 1 ? 'btn btn-primary' : 'btn btn-default'">1</button></li>
+                <li><button ng-click="wordCount = 2" ng-class="wordCount == 2 ? 'btn btn-primary' : 'btn btn-default'">2</button></li>
+                <li><button ng-click="wordCount = 3" ng-class="wordCount == 3 ? 'btn btn-primary' : 'btn btn-default'">3</button></li>
+                <li><button ng-click="wordCount = 4" ng-class="wordCount == 4 ? 'btn btn-primary' : 'btn btn-default'">4</button></li>
+                <li><button ng-click="wordCount = 5" ng-class="wordCount == 5 ? 'btn btn-primary' : 'btn btn-default'">5</button></li>
+                <li><button ng-click="wordCount = 25" ng-class="wordCount == 25 ? 'btn btn-primary' : 'btn btn-default'">Turn Off</button></li>
+            </ul>
+        </nav>
+
+        <!--Table-->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Value Number</th>
+                    <th>Input Field</th>
+                    <th>Controls</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--first value-->
+                <tr>
+                    <td>
+                        <label for="value" id="value">1</label>
+                        <button ng-class="value.length <= 25 ? 'btn btn-success pull-right' : 'btn btn-warning pull-right'" ng-bind="value.length > 0 ? value.length : 0"></button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" name="value" id="value" ng-model="value" autofocus>
+                    </td>
+                    <td>
+                        <button ng-click="value = ''" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button id="data" class="btn btn-primary" data-clipboard-text="{{capitalise(value, wordCount)}}" title="copy to clipboard"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+                <!--first value-->
+                <!--second value-->
+                <tr>
+                    <td>
+                        <label for="value1" id="value1">2</label>
+                        <button ng-class="value1.length <= 25 ? 'btn btn-success pull-right' : 'btn btn-warning pull-right'" ng-bind="value1.length > 0 ? value1.length : 0"></button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" name="value1" id="value1" ng-model="value1">
+                    </td>
+                    <td>
+                        <button ng-click="value1 = ''" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button id="data" class="btn btn-primary" data-clipboard-text="{{capitalise(value1, wordCount)}}" title="copy to clipboard"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+                <!--second value-->
+                <!--third value-->
+                <tr>
+                    <td>
+                        <label for="value2" id="value2">3</label>
+                        <button ng-class="value2.length <= 25 ? 'btn btn-success pull-right' : 'btn btn-warning pull-right'" ng-bind="value2.length > 0 ? value2.length : 0"></button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" name="value2" id="value2" ng-model="value2">
+                    </td>
+                    <td>
+                        <button ng-click="value2 = ''" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button id="data" class="btn btn-primary" data-clipboard-text="{{capitalise(value2, wordCount)}}" title="copy to clipboard"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+                <!--third value-->
+                <!--fourth value-->
+                <tr>
+                    <td>
+                        <label for="value3" id="value3">4</label>
+                        <button ng-class="value3.length <= 25 ? 'btn btn-success pull-right' : 'btn btn-warning pull-right'" ng-bind="value3.length > 0 ? value3.length : 0"></button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" name="value3" id="value3" ng-model="value3">
+                    </td>
+                    <td>
+                        <button ng-click="value3 = ''" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button id="data" class="btn btn-primary" data-clipboard-text="{{capitalise(value3, wordCount)}}" title="copy to clipboard"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+                <!--fourth value-->
+                <!--fifth value-->
+                <tr>
+                    <td>
+                        <label for="value4" id="value4">5</label>
+                        <button ng-class="value4.length <= 25 ? 'btn btn-success pull-right' : 'btn btn-warning pull-right'" ng-bind="value4.length > 0 ? value4.length : 0"></button>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" name="value4" id="value4" ng-model="value4">
+                    </td>
+                    <td>
+                        <button ng-click="value4 = ''" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <button id="data" class="btn btn-primary" data-clipboard-text="{{capitalise(value4, wordCount)}}" title="copy to clipboard"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+                <!--fifth value-->
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="text-center">
+                           <!-- <button class="btn btn-primary btn-md btn-block" data-clipboard-text="{{capitalise(value, wordCount)}}">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i> Copy all</button>-->
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Capitalised Results</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="pagination" ng-repeat="val in capitalise(value, wordCount).split(' ')">
+                            <a ng-show="value.length" class="btn btn-default btn-lg" id="margin" href="http://www.dizionario-italiano.it/dizionario-italiano.php?parola={{val}}" target="_blank"><span class="text" type="text" ng-bind="val"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="pagination" ng-repeat="val1 in capitalise(value1, wordCount).split(' ')">
+                            <a ng-show="value1.length" class="btn btn-default btn-lg" id="margin" href="http://www.dizionario-italiano.it/dizionario-italiano.php?parola={{val1}}" target="_blank"><span class="text" type="text" ng-bind="val1"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="pagination" ng-repeat="val2 in capitalise(value2, wordCount).split(' ')">
+                            <a ng-show="value2.length" class="http://www.dizionario-italiano.it/dizionario-italiano.php?parola={{val2}}" target="_blank"><span class="text" type="text" ng-bind="val2"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="pagination" ng-repeat="val3 in capitalise(value3, wordCount).split(' ')">
+                            <a ng-show="value3.length" class="btn btn-default btn-lg" id="margin" href="http://www.dizionario-italiano.it/dizionario-italiano.php?parola={{val3}}" target="_blank"><span class="text" type="text" ng-bind="val3"></span></a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="pagination" ng-repeat="val4 in capitalise(value4, wordCount).split(' ')">
+                            <a ng-show="value4.length" class="btn btn-default btn-lg" id="margin" href="http://www.dizionario-italiano.it/dizionario-italiano.php?parola={{val4}}" target="_blank"><span class="text" type="text" ng-bind="val4"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/clipboard/dist/clipboard.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        var clipboard = new Clipboard('#data');
+        clipboard.on('success', function(e) {
+            console.log('copied!');
+        });
+        clipboard.on('error', function(e) {
+            console.log('error');
+        });
+    </script>
+</body>
+
+</html>
